@@ -41,7 +41,14 @@ class YoloDetector:
         blob = cv2.dnn.blobFromImage(image, 1/255.0, (416, 416), swapRB=True, crop=False)
         self.model.setInput(blob)
         layer_names = self.model.getLayerNames()
-        output_layers = [layer_names[i[0] - 1] for i in self.model.getUnconnectedOutLayers()]
+        # Handle different types of output from getUnconnectedOutLayers()
+        unconnected_out_layers = self.model.getUnconnectedOutLayers()
+        if isinstance(unconnected_out_layers[0], (list, tuple)):
+            output_layers = [layer_names[i[0] - 1] for i in unconnected_out_layers]
+        else:
+            output_layers = [layer_names[i - 1] for i in unconnected_out_layers]
+        
+        outputs = self.model.forward(output_layers)
         detections = self.model.forward(output_layers)
 
         boxes = []
