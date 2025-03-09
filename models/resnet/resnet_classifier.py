@@ -27,7 +27,7 @@ class ResnetClassifier:
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
         self.model = models.resnet50(pretrained=False)
-        self.model.load_state_dict(torch.load(weights_path, map_location=self.device))
+        self.model.load_state_dict(torch.load(weights_path))
         self.model.to(self.device)
         self.model.eval()
 
