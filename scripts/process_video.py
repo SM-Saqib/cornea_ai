@@ -39,29 +39,32 @@ def draw_bounding_box(frame, box, label):
 
 def download_yolo_weights():
     """
-    Downloads YOLOv3 weights from the official website.
+    Downloads YOLOv3 weights from the official website if not already downloaded.
     """
     weights_url = "https://pjreddie.com/media/files/yolov3.weights"
     weights_path = "yolov3.weights"
-    os.system(f"wget {weights_url} -O {weights_path}")
+    if not os.path.exists(weights_path):
+        os.system(f"wget {weights_url} -O {weights_path}")
     return weights_path
 
 def download_yolo_config():
     """
-    Downloads YOLOv3 config file from the official website.
+    Downloads YOLOv3 config file from the official website if not already downloaded.
     """
     config_url = "https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg"
     config_path = "yolov3.cfg"
-    os.system(f"wget {config_url} -O {config_path}")
+    if not os.path.exists(config_path):
+        os.system(f"wget {config_url} -O {config_path}")
     return config_path
 
 def download_resnet_weights():
     """
-    Downloads ResNet50 weights from the official PyTorch website.
+    Downloads ResNet50 weights from the official PyTorch website if not already downloaded.
     """
     weights_url = "https://download.pytorch.org/models/resnet50-19c8e357.pth"
     weights_path = "resnet50_weights.pth"
-    os.system(f"wget {weights_url} -O {weights_path}")
+    if not os.path.exists(weights_path):
+        os.system(f"wget {weights_url} -O {weights_path}")
     return weights_path
 
 
