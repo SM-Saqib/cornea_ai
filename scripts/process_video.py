@@ -36,6 +36,35 @@ def draw_bounding_box(frame, box, label):
     cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
     cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
+
+def download_yolo_weights():
+    """
+    Downloads YOLOv3 weights from the official website.
+    """
+    weights_url = "https://pjreddie.com/media/files/yolov3.weights"
+    weights_path = "yolov3.weights"
+    os.system(f"wget {weights_url} -O {weights_path}")
+    return weights_path
+
+def download_yolo_config():
+    """
+    Downloads YOLOv3 config file from the official website.
+    """
+    config_url = "https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg"
+    config_path = "yolov3.cfg"
+    os.system(f"wget {config_url} -O {config_path}")
+    return config_path
+
+def download_resnet_weights():
+    """
+    Downloads ResNet50 weights from the official PyTorch website.
+    """
+    weights_url = "https://download.pytorch.org/models/resnet50-19c8e357.pth"
+    weights_path = "resnet50_weights.pth"
+    os.system(f"wget {weights_url} -O {weights_path}")
+    return weights_path
+
+
 def process_video(video_path, yolo_weights, yolo_config, resnet_weights, output_path):
     """
     Processes the video using the vision pipeline.
@@ -96,8 +125,8 @@ def process_video(video_path, yolo_weights, yolo_config, resnet_weights, output_
 
 if __name__ == "__main__":
     video_path = "input_video.mp4"
-    yolo_weights = "yolov3.weights"
-    yolo_config = "yolov3.cfg"
-    resnet_weights = "resnet50_weights.pth"
+    yolo_weights = download_yolo_weights()
+    yolo_config = download_yolo_config()
+    resnet_weights = download_resnet_weights()
     output_path = "output_video.avi"
     process_video(video_path, yolo_weights, yolo_config, resnet_weights, output_path)
