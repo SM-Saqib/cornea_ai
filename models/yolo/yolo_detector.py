@@ -27,7 +27,6 @@ class YoloDetector:
         else:
             self.model.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
             self.model.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
-        self.model.eval()
 
     def detect_objects(self, image):
         """
